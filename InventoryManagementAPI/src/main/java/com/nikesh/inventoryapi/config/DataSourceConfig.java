@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories("com.nikesh.inventoryapi.repository")
 @EnableTransactionManagement
-@PropertySource(value = "classpath:applicationF.properties")
+@PropertySource(value = "classpath:application.properties")
 //@PropertySource("file:${catalina.home}/conf/application.properties")
 public class DataSourceConfig {
 
@@ -34,6 +34,7 @@ public class DataSourceConfig {
     private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
+    private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
 
     @Resource
     private Environment env;
@@ -68,7 +69,7 @@ public class DataSourceConfig {
         Properties properties = new Properties();
         properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
         properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
         return properties;
     }
 

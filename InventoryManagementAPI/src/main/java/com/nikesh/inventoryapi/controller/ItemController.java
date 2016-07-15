@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -110,7 +111,50 @@ public class ItemController {
                 throw new GenericException(new ErrorResponse(
                         HttpStatus.EXPECTATION_FAILED.value(),
                         HttpStatus.EXPECTATION_FAILED,
-                        "Could not add add item because of conversion failure.",
+                        "Could not add item because of conversion failure.",
+                        "Conversion failed. Exception: [" + ex.getMessage() + "]"
+                ));
+            }
+        }
+    }
+
+    /**
+     * Resource URI to update existing resource of Item entity.
+     *
+     * @param modifiedItemRequestDTO RequestBody of type ItemRequestDTO which
+     * holds the modified Item information to update.
+     * @return Response object of type ItemResponseDTO containing information
+     * that is updated by using ItemRequestDTO (RequestBody) as a reference.
+     */
+    @RequestMapping(method = PUT)
+    public ResponseEntity<ItemResponseDTO> updateItem(@RequestBody ItemRequestDTO modifiedItemRequestDTO) {
+        // CHECK IF REQUEST IS VALID OR NOT
+        if (modifiedItemRequestDTO == null) {
+            throw new GenericException(new ErrorResponse(
+                    HttpStatus.BAD_REQUEST.value(),
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid request body.",
+                    "Invalid request body, please check your JSON request data format."
+            ));
+        } else {
+            // TRY AND CATCH FOR ANY EXCEPTION
+            try {
+                // CONVERT ItemRequestDTO (REQUEST BODY) INTO PERSISTABLE ENTITY OBJECT
+                item = ItemConverter.convertToEntity(modifiedItemRequestDTO);
+
+                // PERSIST (UPDATE) CONVERTED ENTITY
+                item = itemService.updateItem(item);
+
+                // CONVERT PERSISTED OBJECT TO ItemResponseDTO OBJECT
+                itemResponseDTO = ItemConverter.convertToResponseDTO(item);
+
+                // RETURN RESPONSE WITH STATUS OK (200)
+                return new ResponseEntity<>(itemResponseDTO, HttpStatus.OK);
+            } catch (Exception ex) {
+                throw new GenericException(new ErrorResponse(
+                        HttpStatus.EXPECTATION_FAILED.value(),
+                        HttpStatus.EXPECTATION_FAILED,
+                        "Could not update item because of conversion failure.",
                         "Conversion failed. Exception: [" + ex.getMessage() + "]"
                 ));
             }

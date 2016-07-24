@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inventory</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+        <script type="text/javascript" src="assets/libs/angular.js"></script>
+        <script type="text/javascript" src="assets/libs/angular-route.js"></script>
+        <script type="text/javascript" src="assets/libs/ngStorage.js"></script>
+        <script type="text/javascript" src="assets/libs/ui-bootstrap-tpls.min.js"></script>
+        <script type="text/javascript" src="app/app.module.js"></script>
+        <script type="text/javascript" src="app/app.routes.js"></script>
+
+        <!-- COMMON SERVICE -->
+        <script type="text/javascript" src="app/shared/HttpService.js"></script>
+
+        <script type="text/javascript" src="app/components/login/LoginController.js"></script>
+        <script type="text/javascript" src="app/components/home/HomeController.js"></script>
+    </head>
+    <body ng-app="Inventory">
+        <div class="jumbotron">
+            <div class="container">
+                <div class="col-xs-offset-2 col-xs-8">
+                    <div ng-view=""></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

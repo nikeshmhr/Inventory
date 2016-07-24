@@ -9,27 +9,15 @@ import java.util.Date;
  */
 public class PartyRequestDTO implements Serializable {
 
-    private Long id;
     private String name;
     private String phoneNumber;
     private String email;
     private Double currentBalance;
     private Date balanceAsOfDate;
     private Character partyType;
+    private Date createdDate;
 
     public PartyRequestDTO() {
-    }
-
-    public PartyRequestDTO(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -78,6 +66,14 @@ public class PartyRequestDTO implements Serializable {
 
     public void setPartyType(Character partyType) {
         this.partyType = partyType;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
 }

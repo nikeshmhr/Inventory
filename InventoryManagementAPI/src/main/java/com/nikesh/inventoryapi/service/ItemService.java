@@ -49,4 +49,6 @@ public interface ItemService {
      */
     Item findItemByItemName(String itemName);
 
+    void deleteItem(Long itemId);
+
 }

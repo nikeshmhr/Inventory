@@ -49,4 +49,11 @@ public interface PartyService {
      */
     List<Party> findPartyByName(String name);
 
+    /**
+     * Method to delete Party entity object by its ID property.
+     *
+     * @param partyId The id of a Party to deleted.
+     */
+    void deleteParty(Long partyId);
+
 }

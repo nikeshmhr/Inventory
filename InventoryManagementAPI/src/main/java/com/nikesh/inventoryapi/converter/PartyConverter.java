@@ -29,12 +29,12 @@ public class PartyConverter {
         party.setCurrentBalance(partyRequestDTO.getCurrentBalance());
 
         party.setEmail(partyRequestDTO.getEmail());
-        party.setId(partyRequestDTO.getId());
 
         party.setName(partyRequestDTO.getName());
         party.setPartyType(partyRequestDTO.getPartyType());
 
         party.setPhoneNumber(partyRequestDTO.getPhoneNumber());
+        party.setCreatedDate(partyRequestDTO.getCreatedDate());
 
         return party;
     }
@@ -62,6 +62,9 @@ public class PartyConverter {
         partyResponseDTO.setPartyType(party.getPartyType());
 
         partyResponseDTO.setPhoneNumber(party.getPhoneNumber());
+        partyResponseDTO.setCreatedDate(party.getCreatedDate());
+
+        partyResponseDTO.setLastModifiedDate(party.getLastModifiedDate());
 
         return partyResponseDTO;
     }

@@ -44,4 +44,9 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findItemByItemName(itemName);
     }
 
+    @Override
+    public void deleteItem(Long itemId) {
+        itemRepository.delete(itemId);
+    }
+
 }

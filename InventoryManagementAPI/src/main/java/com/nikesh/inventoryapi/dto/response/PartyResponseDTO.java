@@ -16,6 +16,8 @@ public class PartyResponseDTO implements Serializable {
     private Double currentBalance;
     private Date balanceAsOfDate;
     private Character partyType;
+    private Date createdDate;
+    private Date lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -71,6 +73,22 @@ public class PartyResponseDTO implements Serializable {
 
     public void setPartyType(Character partyType) {
         this.partyType = partyType;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
 }

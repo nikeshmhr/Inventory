@@ -27,9 +27,8 @@ public class ItemConverter {
         Item item = new Item();
 
         item.setCreatedDate(itemRequestDTO.getCreatedDate());
-        item.setId(itemRequestDTO.getId());
         item.setItemName(itemRequestDTO.getItemName());
-        item.setLastModifiedDate(itemRequestDTO.getLastModifiedDate());
+        
         item.setPurchasePrice(itemRequestDTO.getPurchasePrice());
         item.setSalePrice(itemRequestDTO.getSalePrice());
 

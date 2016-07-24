@@ -42,6 +42,14 @@ public class Party implements Serializable {
     @Column(name = "party_type", nullable = false)
     private Character partyType;
 
+    @Column(name = "created_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    @Column(name = "last_modified_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
     public Party() {
 
     }
@@ -104,6 +112,22 @@ public class Party implements Serializable {
 
     public void setPartyType(Character partyType) {
         this.partyType = partyType;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
 }

@@ -153,6 +153,9 @@ public class PartyController {
                 party = PartyConverter.convertToEntity(partyRequestDTO);
                 party.setId(null);
                 party.setLastModifiedDate(new Date());
+                if (party.getCreatedDate() == null) {
+                    party.setCreatedDate(new Date());
+                }
 
                 // PERSIST CONVERTED ENTITY
                 party = partyService.saveParty(party);

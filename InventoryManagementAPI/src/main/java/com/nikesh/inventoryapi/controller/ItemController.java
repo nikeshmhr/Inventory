@@ -152,6 +152,9 @@ public class ItemController {
                 item = ItemConverter.convertToEntity(itemRequestDTO);
                 item.setLastModifiedDate(new Date());
                 item.setId(null);
+                if (item.getCreatedDate() == null) {
+                    item.setCreatedDate(new Date());
+                }
 
                 // PERSIST CONVERTED ENTITY
                 item = itemService.saveItem(item);

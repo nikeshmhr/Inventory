@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -135,6 +136,7 @@ public class ItemController {
      * @return Response object of type ItemResponseDTO containing information
      * that is created by using ItemRequestDTO (RequestBody) as a reference.
      */
+    @CrossOrigin(allowCredentials = "true")
     @RequestMapping(method = POST)
     public ResponseEntity<ItemResponseDTO> addItem(@RequestBody ItemRequestDTO itemRequestDTO) {
         // CHECK IF REQUEST BODY IS NULL OR INVALID

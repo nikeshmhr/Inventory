@@ -1,0 +1,9 @@
+/* 
+    Created on : Aug 2, 2016, 9:23:35 PM
+    Author     : Nikesh Maharjan
+*/
+
+.input-invalid {
+    color: red;
+    font-style: italic;
+}

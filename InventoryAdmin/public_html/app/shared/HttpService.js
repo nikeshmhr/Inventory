@@ -1,3 +1,5 @@
+/* global angular */
+
 angular.module('Inventory').factory('HttpService', HttpService);
 
 HttpService.$inject = ['$http', '$q', '$location'];
@@ -5,7 +7,7 @@ HttpService.$inject = ['$http', '$q', '$location'];
 function HttpService($http, $q, $location) {
 
     var vm = this;
-    vm.url = "localhost:8080/inventory-api/"; //$location.absUrl().split('#')[0];
+    vm.url = "http://127.0.0.1:8080/inventory-api/"; //$location.absUrl().split('#')[0];
 
     return {
         get: function (resourceURI) {

@@ -6,14 +6,14 @@ LoginService.$inject = ['HttpService'];
 
 function LoginService(HttpService) {
 
-		var vm = this;
+    var vm = this;
 
-		vm.resourceURI = "login/";
+    vm.resourceURI = "login/";
 
-		return {
-				validateUser: function (credentials) {
-          return HttpService.post(vm.resourceURI, credentials);
-				}
-		};
+    return {
+        validateUser: function (credentials) {
+            return HttpService.post(vm.resourceURI, credentials);
+        }
+    };
 
 }

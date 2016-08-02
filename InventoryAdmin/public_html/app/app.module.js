@@ -1,3 +1,3 @@
 /* global angular */
 
-angular.module('Inventory', ['ngRoute', 'ngStorage', 'ui.bootstrap']);
+angular.module('Inventory', ['ui.bootstrap', 'ngRoute', 'ngStorage']);

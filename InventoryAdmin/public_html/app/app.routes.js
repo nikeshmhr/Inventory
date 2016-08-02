@@ -14,8 +14,8 @@ angular.module('Inventory').config(function ($routeProvider) {
                 templateUrl: 'home.html'
             })
             .when('/items/new', {
-                controller: 'ItemController as itemController',
-                templateUrl: 'app/components/items/addItem.html'
+                controller: 'ItemController as itemCtrl',
+                templateUrl: 'app/components/items/views/addItem.html'
             })
             .otherwise({redirectTo: '/home'});
 });
@@ -33,7 +33,7 @@ angular.module('Inventory').run(function ($rootScope, $location, $localStorage) 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         //redirect to login page if not logged in
         if ($location.path() !== '/login' && !$rootScope.isLoggedIn) {   //
-            $location.path('/login');
+//            $location.path('/login');
         } else if ($location.path() === '/home' && $rootScope.isLoggedIn) {  // 
             alert("TO HOME");
             $location.path('/home');

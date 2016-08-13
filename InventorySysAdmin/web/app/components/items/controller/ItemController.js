@@ -156,6 +156,7 @@ function ItemController(ItemService, ObjEqualityCheckService, $uibModal, $rootSc
      * @returns {undefined}
      */
     function fetchItems() {
+        vm.itemList = [];
         ItemService.fetchItems()
                 .then(
                         function (data) {

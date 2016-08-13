@@ -12,7 +12,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,6 +68,7 @@ public class ItemController {
                 // RETURN RESPONSE WITH OK (200) STATUS
                 return new ResponseEntity<>(itemResponseDTOList, HttpStatus.OK);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 throw new GenericException(new ErrorResponse(
                         HttpStatus.EXPECTATION_FAILED.value(),
                         HttpStatus.EXPECTATION_FAILED,
@@ -117,6 +117,7 @@ public class ItemController {
                     // RETURN RESPONSE WITH OK (200) STATUS
                     return new ResponseEntity<>(itemResponseDTO, HttpStatus.OK);
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     throw new GenericException(new ErrorResponse(
                             HttpStatus.EXPECTATION_FAILED.value(),
                             HttpStatus.EXPECTATION_FAILED,
@@ -164,6 +165,7 @@ public class ItemController {
                 // RETURN RESPONSE WITH STATUS CREATED (201)
                 return new ResponseEntity<>(itemResponseDTO, HttpStatus.CREATED);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 throw new GenericException(new ErrorResponse(
                         HttpStatus.EXPECTATION_FAILED.value(),
                         HttpStatus.EXPECTATION_FAILED,
@@ -210,6 +212,7 @@ public class ItemController {
                 // RETURN RESPONSE WITH STATUS OK (200)
                 return new ResponseEntity<>(itemResponseDTO, HttpStatus.OK);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 throw new GenericException(new ErrorResponse(
                         HttpStatus.EXPECTATION_FAILED.value(),
                         HttpStatus.EXPECTATION_FAILED,
@@ -263,6 +266,7 @@ public class ItemController {
                     // RETURN RESPONSE
                     return new ResponseEntity<>(itemResponseDTO, HttpStatus.OK);
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     // THROW CONVERSION EXCEPTION
                     throw new GenericException(new ErrorResponse(
                             HttpStatus.EXPECTATION_FAILED.value(),

@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box-modal">
+            <div class="box-header with-border">
+                <i class="fa fa-pencil-square"></i>
+                <h3 class="box-title">Edit Item</h3>
+            </div>
+            <div class="box-body">
+                <form name="updateItem" autocomplete="off">
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Item Name <required>*</required></label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" name="itemName" ng-model="item.itemName" ng-required="true"
+                                   ng-maxlength="50"
+                                   />
+                            <p class="input-invalid" ng-show="updateItem.itemName.$error.maxlength">
+                                Item Name must not exceed 50 characters.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Purchase Price (Per Unit) <required>*</required></label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="number" name="purchasePrice" min="1" placeholder="0.00" step="0.1" 
+                                   required ng-model="item.purchasePrice" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Sale Price (Per Unit) <required>*</required></label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="number" name="salePrice" min="1" placeholder="0.00" step="0.1" 
+                                   required ng-model="item.salePrice" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="box-footer">
+                <label class="col-md-3"></label>
+                <button type="button" class="btn btn-success" ng-disabled="updateItem.$invalid"
+                        ng-click="ok()">Update</button>
+                <span></span>
+                <button type="button" ng-click="cancel()" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

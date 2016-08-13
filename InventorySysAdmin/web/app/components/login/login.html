@@ -1,0 +1,25 @@
+<form name="form" ng-submit="loginCtrl.login()" role="form" class="col-md-6 col-md-offset-3">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <i class="fa fa-key"></i>
+        <input type="text" name="username" id="username" class="form-control" ng-model="loginCtrl.loginData.username" required>
+        <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block ng-hide">Username is required</span>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <i class="fa fa-lock"></i>
+        <input type="password" name="password" id="password" class="form-control ng-dirty ng-valid ng-valid-required" 
+               ng-model="loginCtrl.loginData.password" required="">
+        <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block ng-hide">Password is required</span>
+    </div>
+    <div class="form-actions">
+        <button type="submit" ng-disabled="form.$invalid" class="btn btn-danger">Login</button>
+    </div>
+    <div>
+        <span class="text-danger" ng-show="loginCtrl.errorMessage.length > 0">{{loginCtrl.errorMessage}}</span>
+    </div>
+</form>
+
+<ul>
+    <li><a href="#/items/new">Add Item</a></li>
+</ul>

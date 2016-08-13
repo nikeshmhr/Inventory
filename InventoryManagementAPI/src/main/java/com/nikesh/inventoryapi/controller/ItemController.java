@@ -136,7 +136,6 @@ public class ItemController {
      * @return Response object of type ItemResponseDTO containing information
      * that is created by using ItemRequestDTO (RequestBody) as a reference.
      */
-    @CrossOrigin(allowCredentials = "true")
     @RequestMapping(method = POST)
     public ResponseEntity<ItemResponseDTO> addItem(@RequestBody ItemRequestDTO itemRequestDTO) {
         // CHECK IF REQUEST BODY IS NULL OR INVALID
@@ -154,9 +153,7 @@ public class ItemController {
                 item = ItemConverter.convertToEntity(itemRequestDTO);
                 item.setLastModifiedDate(new Date());
                 item.setId(null);
-                if (item.getCreatedDate() == null) {
-                    item.setCreatedDate(new Date());
-                }
+                item.setCreatedDate(new Date());
 
                 // PERSIST CONVERTED ENTITY
                 item = itemService.saveItem(item);
@@ -232,6 +229,9 @@ public class ItemController {
      */
     @RequestMapping(method = DELETE, value = "/{itemId}")
     public ResponseEntity<ItemResponseDTO> deleteItem(@PathVariable("itemId") Long itemId) {
+        // HttpHeaders headers = new HttpHeaders();
+        // headers.setAccessControlAllowMethods(Arrays.asList(HeaderMethodConstants.ACCESS_CONTROL_ALLOW_METHODS));
+
         // CHECK IF itemId IS INVALID
         if (itemId == null || itemId <= 0) {
             throw new GenericException(new ErrorResponse(

@@ -17,6 +17,10 @@ angular.module('Inventory').config(function ($routeProvider) {
                 controller: 'ItemController as itemCtrl',
                 templateUrl: 'app/components/items/views/addItem.html'
             })
+            .when('/items', {
+                controller: 'ItemController as itemCtrl',
+                templateUrl: 'app/components/items/views/manageItem.html'
+            })
             .otherwise({redirectTo: '/home'});
 });
 

@@ -13,6 +13,15 @@ function ItemService(HttpService) {
     return {
         addItem: function (itemData) {
             return HttpService.post(resourceURI, itemData);
+        },
+        fetchItems: function () {
+            return HttpService.get(resourceURI);
+        },
+        updateItem: function (itemData) {
+            return HttpService.put(resourceURI + '/' + itemData.id, itemData);
+        },
+        deleteItem: function (itemId) {
+            return HttpService.delete(resourceURI + '/' + itemId);
         }
     };
 

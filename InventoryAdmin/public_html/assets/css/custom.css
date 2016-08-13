@@ -3,7 +3,21 @@
     Author     : Nikesh Maharjan
 */
 
+* {
+    font-family: sans-serif;
+}
+
 .input-invalid {
-    color: red;
+    color: #a71627;
     font-style: italic;
+}
+
+.action-icons {
+    cursor: pointer;
+    padding: 5px;
+    color:black;
+}
+
+.page-header > small {
+    display: inline;
 }

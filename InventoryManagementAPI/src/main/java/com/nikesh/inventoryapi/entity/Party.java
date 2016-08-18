@@ -26,13 +26,13 @@ public class Party implements Serializable {
     @Column(name = "name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "phone_number", nullable = false, length = 30)
+    @Column(name = "phone_number", nullable = true, length = 30)
     private String phoneNumber;
 
     @Column(name = "email_address", nullable = true, length = 50)
     private String email;
 
-    @Column(name = "current_balance", nullable = false)
+    @Column(name = "current_balance", nullable = true)
     private Double currentBalance;
 
     @Column(name = "balance_as_of", nullable = true)

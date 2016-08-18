@@ -15,7 +15,6 @@ public class PartyRequestDTO implements Serializable {
     private Double currentBalance;
     private Date balanceAsOfDate;
     private Character partyType;
-    private Date createdDate;
 
     public PartyRequestDTO() {
     }
@@ -67,13 +66,4 @@ public class PartyRequestDTO implements Serializable {
     public void setPartyType(Character partyType) {
         this.partyType = partyType;
     }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
 }

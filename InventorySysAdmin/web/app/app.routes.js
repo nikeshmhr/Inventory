@@ -15,11 +15,19 @@ angular.module('Inventory').config(function ($routeProvider) {
             })
             .when('/items/new', {
                 controller: 'ItemController as itemCtrl',
-                templateUrl: 'app/components/items/views/addItem.html'
+                templateUrl: 'app/components/item/views/addItem.html'
             })
             .when('/items', {
                 controller: 'ItemController as itemCtrl',
-                templateUrl: 'app/components/items/views/manageItem.html'
+                templateUrl: 'app/components/item/views/manageItem.html'
+            })
+            .when('/parties/new', {
+                controller: 'PartyController as partyCtrl',
+                templateUrl: 'app/components/party/views/addParty.html'
+            })
+            .when('/parties', {
+                controller: 'PartyController as partyCtrl',
+                templateUrl: 'app/components/party/views/manageParty.html'
             })
             .otherwise({redirectTo: '/home'});
 });

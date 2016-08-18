@@ -26,9 +26,8 @@ public class ItemConverter {
     public static Item convertToEntity(ItemRequestDTO itemRequestDTO) throws Exception {
         Item item = new Item();
 
-        item.setCreatedDate(itemRequestDTO.getCreatedDate());
         item.setItemName(itemRequestDTO.getItemName());
-        
+
         item.setPurchasePrice(itemRequestDTO.getPurchasePrice());
         item.setSalePrice(itemRequestDTO.getSalePrice());
 

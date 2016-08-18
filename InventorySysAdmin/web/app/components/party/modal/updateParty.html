@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box-modal">
+            <div class="box-header with-border">
+                <i class="fa fa-pencil-square"></i>
+                <h3 class="box-title">Edit Party</h3>
+            </div>
+            <div class="box-body">
+                <pre>{{party| json }}</pre>
+                <form name="updateParty" autocomplete="off">
+                    <div class="form-group">
+                        <label>Party Name <required>*</required></label>
+                        <input class="form-control" type="text" name="partyName" ng-model="party.name" 
+                               ng-maxlength="50" ng-required="true" />
+                        <p class="input-invalid" ng-show="updateParty.partyName.$error.required && updateParty.partyName.$touched">
+                            Party Name is required.
+                        </p>
+                        <p class="input-invalid" ng-show="updateParty.partyName.$error.maxlength">
+                            Party Name must not exceed 50 characters.
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number </label>
+                        <input class="form-control" type="text" name="phoneNo" ng-model="party.phoneNumber" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input class="form-control" type="email" name="emailAddress" ng-model="party.email" />
+                        <p class="input-invalid" ng-show="updateParty.email.$invalid && updateParty.email.$touched">
+                            Enter valid email address.
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Current Balance</label>
+                        <input class="form-control" type="number" name="currentBalance" ng-model="party.currentBalance" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Balance as of Date</label>
+                        <input class="form-control" type="date" name="balanceAsOf" ng-model="party.balanceAsOfDate" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Party Type <required>*</required></label>
+                        <div class="radio">
+                            <label><input type="radio" name="partyType" required ng-model="party.partyType" value="P" /> Payable</label>
+                            <label><input type="radio" name="partyType" required ng-model="party.partyType" value="R" /> Receivable</label>
+                            <p class="input-invalid" ng-show="updateParty.partyType.$invalid && updateParty.partyType.$touched">
+                                Party type is required field.
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="box-footer">
+                <label class="col-md-3"></label>
+                <button type="button" class="btn btn-success" ng-disabled="updateParty.$invalid"
+                        ng-click="ok()">Update</button>
+                <span></span>
+                <button type="button" ng-click="cancel()" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

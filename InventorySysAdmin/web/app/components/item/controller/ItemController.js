@@ -180,7 +180,7 @@ function ItemController(ItemService, ObjEqualityCheckService, $uibModal, $rootSc
 
         var modalInstance = $uibModal.open({
             size: 'md',
-            templateUrl: 'app/components/items/modal/updateItem.html',
+            templateUrl: 'app/components/item/modal/updateItem.html',
             controller: 'ItemUpdateModalCtrl',
             backdrop: false,
             resolve: {

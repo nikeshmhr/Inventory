@@ -2,9 +2,9 @@
 
 angular.module('Inventory').factory('LoginService', LoginService);
 
-LoginService.$inject = ['HttpService'];
+LoginService.$inject = ['HttpService', '$localStorage'];
 
-function LoginService(HttpService) {
+function LoginService(HttpService, $localStorage) {
 
     var vm = this;
 
@@ -13,6 +13,12 @@ function LoginService(HttpService) {
     return {
         validateUser: function (credentials) {
             return HttpService.post(vm.resourceURI, credentials);
+        },
+        setLoggedIn: function (value) {
+            $localStorage.isLoggedIn = value;
+        },
+        resetLoggedIn: function () {
+            $localStorage.$reset();
         }
     };
 

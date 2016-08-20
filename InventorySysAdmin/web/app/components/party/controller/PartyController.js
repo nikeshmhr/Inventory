@@ -7,10 +7,11 @@ PartyController.$inject = [
     'ObjEqualityCheckService',
     '$uibModal',
     '$rootScope',
-    '$localStorage'
+    '$localStorage',
+    '$anchorScroll'
 ];
 
-function PartyController(PartyService, ObjEqualityCheckService, $uibModal, $rootScope, $localStorage) {
+function PartyController(PartyService, ObjEqualityCheckService, $uibModal, $rootScope, $localStorage, $anchorScroll) {
 
     var vm = this;
 
@@ -93,6 +94,7 @@ function PartyController(PartyService, ObjEqualityCheckService, $uibModal, $root
 
     vm.fetchParties();
 
+    $anchorScroll();
 
     /**********************************************************
      ************* FUNCTION DEFINITION STARTS *****************
@@ -116,6 +118,7 @@ function PartyController(PartyService, ObjEqualityCheckService, $uibModal, $root
                             vm.errorMessage = error.data.errorMessage;
                         }
                 );
+        $anchorScroll();
     }
 
     /**
@@ -206,6 +209,7 @@ function PartyController(PartyService, ObjEqualityCheckService, $uibModal, $root
                             }
                         }
                 );
+        $anchorScroll();
     }
 
     /**
@@ -261,6 +265,7 @@ function PartyController(PartyService, ObjEqualityCheckService, $uibModal, $root
                             vm.pushAlert('danger', 'Failed to delete party \'' + party.name + '\'.');
                         }
                 );
+        $anchorScroll();
     }
 
     /**

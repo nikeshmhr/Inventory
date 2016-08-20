@@ -1,13 +1,17 @@
+/* global angular */
+
 angular.module('Inventory').controller('LoginController', LoginController);
 
 LoginController.$inject = [
+    'LoginService',
     '$rootScope',
     '$location',
+    '$route',
     '$timeout',
     '$localStorage'
 ];
 
-function LoginController($rootScope, $location, $timeout, $localStorage) {
+function LoginController(LoginService, $rootScope, $location, $route, $timeout, $localStorage) {
 
     var vm = this;
 
@@ -23,9 +27,12 @@ function LoginController($rootScope, $location, $timeout, $localStorage) {
 
     function login() {
         if (vm.loginData.username === 'admin' && vm.loginData.password === 'admin') {
-            $rootScope.isLoggedIn = true;
+            $route.reload();
+            LoginService.setLoggedIn(true);
             $location.path("/home");
         } else {
+            LoginService.resetLoggedIn();
+            $route.reload();
             vm.errorMessage = "Username or password incorrect.";
             alert(vm.errorMessage);
         }

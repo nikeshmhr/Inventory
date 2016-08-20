@@ -7,10 +7,11 @@ ItemController.$inject = [
     'ObjEqualityCheckService',
     '$uibModal',
     '$rootScope',
-    '$localStorage'
+    '$localStorage',
+    '$anchorScroll'
 ];
 
-function ItemController(ItemService, ObjEqualityCheckService, $uibModal, $rootScope, $localStorage) {
+function ItemController(ItemService, ObjEqualityCheckService, $uibModal, $rootScope, $localStorage, $anchorScroll) {
 
     var vm = this;
 
@@ -91,6 +92,8 @@ function ItemController(ItemService, ObjEqualityCheckService, $uibModal, $rootSc
 
     vm.fetchItems();
 
+    $anchorScroll();
+
 
     /**********************************************************
      ************* FUNCTION DEFINITION STARTS *****************
@@ -114,6 +117,7 @@ function ItemController(ItemService, ObjEqualityCheckService, $uibModal, $rootSc
                             vm.errorMessage = error.data.errorMessage;
                         }
                 );
+        $anchorScroll();
     }
 
     /**
@@ -202,6 +206,7 @@ function ItemController(ItemService, ObjEqualityCheckService, $uibModal, $rootSc
                             }
                         }
                 );
+        $anchorScroll();
     }
 
     /**
@@ -257,6 +262,7 @@ function ItemController(ItemService, ObjEqualityCheckService, $uibModal, $rootSc
                             vm.pushAlert('danger', 'Failed to delete item \'' + item.itemName + '\'.');
                         }
                 );
+        $anchorScroll();
     }
 
     /**

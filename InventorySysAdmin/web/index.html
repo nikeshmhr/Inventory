@@ -40,6 +40,7 @@
         <script type="text/javascript" src="app/shared/HttpService.js"></script>
         <script type="text/javascript" src="app/shared/ObjEqualityCheckService.js"></script>
 
+        <script type="text/javascript" src="app/components/login/LoginService.js"></script>
         <script type="text/javascript" src="app/components/login/LoginController.js"></script>
 
         <script type="text/javascript" src="app/components/home/HomeController.js"></script>
@@ -54,8 +55,7 @@
 
         <!-- SCRIPT ENDS HERE -->
     </head>
-    <body ng-app="Inventory" class="ng-cloak" ng-init="isCollapsed = true;
-            dropDownCollapse = true;">
+    <body ng-app="Inventory" class="ng-cloak">
         <div id="wrapper">
 
             <!-- Navigation -->
@@ -166,25 +166,25 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                <a href="#/login"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse" uib-collapse="isCollapsed">
+                <div class="collapse navbar-collapse navbar-ex1-collapse" uib-collapse="!isCollapsed">
                     <ul class="nav navbar-nav side-nav">
                         <li>
-                            <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                            <a href="#/items/new" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-plus"></i> Add Items</a>
                         </li>
                         <li>
-                            <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                            <a href="#/items" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-dashboard"></i> List Items</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
+                            <a href="#/parties/new" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-male"></i> Add Party</a>
                         </li>
-                        <li class="active">
-                            <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                        <li>
+                            <a href="#/parties" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-female"></i> List Parties</a>
                         </li>
                         <li>
                             <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
@@ -194,7 +194,7 @@
                         </li>
                         <li>
                             <a href="javascript:;" data-toggle="collapse" ng-click="dropDownCollapse = !dropDownCollapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                            <ul id="demo" class="collapse" uib-collapse="dropDownCollapse">
+                            <ul id="demo" class="collapse" uib-collapse="!dropDownCollapse">
                                 <li>
                                     <a href="#">Dropdown Item</a>
                                 </li>

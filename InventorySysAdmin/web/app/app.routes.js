@@ -47,7 +47,6 @@ angular.module('Inventory').run(function ($rootScope, $location, $localStorage) 
         if ($location.path() !== '/login' && !$rootScope.isLoggedIn) {   //
 //            $location.path('/login');
         } else if ($location.path() === '/home' && $rootScope.isLoggedIn) {  // 
-            alert("TO HOME");
             $location.path('/home');
         } else if ($location.path() === '') {
 //            $localStorage.$reset();

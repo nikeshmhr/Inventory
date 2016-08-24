@@ -34,6 +34,8 @@ public class PartyConverter {
         party.setPartyType(partyRequestDTO.getPartyType());
         party.setPhoneNumber(partyRequestDTO.getPhoneNumber());
 
+        party.setCreatedDate(partyRequestDTO.getCreatedDate());
+
         return party;
     }
 

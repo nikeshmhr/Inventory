@@ -25,12 +25,13 @@ public class ItemConverter {
      */
     public static Item convertToEntity(ItemRequestDTO itemRequestDTO) throws Exception {
         Item item = new Item();
-
+        
         item.setItemName(itemRequestDTO.getItemName());
-
+        
         item.setPurchasePrice(itemRequestDTO.getPurchasePrice());
         item.setSalePrice(itemRequestDTO.getSalePrice());
-
+        item.setCreatedDate(itemRequestDTO.getCreatedDate());
+        
         return item;
     }
 
@@ -48,14 +49,14 @@ public class ItemConverter {
      */
     public static ItemResponseDTO convertToResponseDTO(Item item) throws Exception {
         ItemResponseDTO itemResponseDTO = new ItemResponseDTO();
-
+        
         itemResponseDTO.setCreatedDate(item.getCreatedDate());
         itemResponseDTO.setId(item.getId());
         itemResponseDTO.setItemName(item.getItemName());
         itemResponseDTO.setLastModifiedDate(item.getLastModifiedDate());
         itemResponseDTO.setPurchasePrice(item.getPurchasePrice());
         itemResponseDTO.setSalePrice(item.getSalePrice());
-
+        
         return itemResponseDTO;
     }
 
@@ -72,7 +73,7 @@ public class ItemConverter {
      */
     public static List<ItemResponseDTO> convertToResponseDTOList(List<Item> items) throws Exception {
         List<ItemResponseDTO> itemResponseDTOs = new ArrayList<>();
-
+        
         if (items == null || items.isEmpty()) {
             return itemResponseDTOs;
         } else {
@@ -80,8 +81,8 @@ public class ItemConverter {
                 itemResponseDTOs.add(convertToResponseDTO(item));
             }
         }
-
+        
         return itemResponseDTOs;
     }
-
+    
 }

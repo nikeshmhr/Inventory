@@ -22,8 +22,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories("com.nikesh.inventoryapi.repository")
 @EnableTransactionManagement
-@PropertySource(value = "classpath:application.properties")
-//@PropertySource("file:${catalina.home}/conf/application.properties")
+//@PropertySource(value = "classpath:application.properties")
+@PropertySource("file:${catalina.home}/conf/inventory.config.properties")
 public class DataSourceConfig {
 
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "connection.driverClass";

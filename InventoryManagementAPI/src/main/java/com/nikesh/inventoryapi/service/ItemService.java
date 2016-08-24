@@ -49,6 +49,11 @@ public interface ItemService {
      */
     Item findItemByItemName(String itemName);
 
+    /**
+     * Method to delete Item entity object.
+     *
+     * @param itemId The ID of the item entity to delete.
+     */
     void deleteItem(Long itemId);
 
 }

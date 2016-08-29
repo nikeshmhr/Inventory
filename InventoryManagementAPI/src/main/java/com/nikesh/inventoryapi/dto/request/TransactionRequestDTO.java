@@ -7,7 +7,7 @@ import java.util.Date;
  *
  * @author Nikesh Maharjan
  */
-public class TransactionRequesetDTO implements Serializable {
+public class TransactionRequestDTO implements Serializable {
 
     private Long id;
 
@@ -19,10 +19,10 @@ public class TransactionRequesetDTO implements Serializable {
 
     private Double totalAmount;
 
-    public TransactionRequesetDTO() {
+    public TransactionRequestDTO() {
     }
 
-    public TransactionRequesetDTO(Long id) {
+    public TransactionRequestDTO(Long id) {
         this.id = id;
     }
 

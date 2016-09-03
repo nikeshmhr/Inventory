@@ -11,10 +11,10 @@ import org.springframework.data.repository.query.Param;
  */
 public interface TransactionDetailRepository extends JpaRepository<TransactionDetail, Long> {
 
-    @Query(value = "SELECT * FROM TransactionDetail td WHERE td.transaction.id=:transactionID")
+    @Query(value = "SELECT td FROM TransactionDetail td WHERE td.transaction.id=:transactionID")
     TransactionDetail findTransactionDetailByTransactionID(@Param("transactionID") Long transactionID);
 
-    @Query(value = "SELECT * FROM TransactionDetail td WHERE td.billNo=:billNo")
+    @Query(value = "SELECT td FROM TransactionDetail td WHERE td.billNo=:billNo")
     TransactionDetail findTransactionDetailByBillNo(@Param("billNo") String billNo);
 
 }

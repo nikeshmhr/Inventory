@@ -12,10 +12,10 @@ import org.springframework.data.repository.query.Param;
  */
 public interface TransactionItemRepository extends JpaRepository<TransactionItem, Long> {
 
-    @Query(name = "SELECT * FROM TransactionItem ti WHERE ti.transactionDetail.id=:transactionDetailID")
-    List<TransactionItem> findTransactionItemsByTransactionDetailID(@Param("transactionDetailID") Long transactionDetailID);
+    @Query(name = "SELECT ti FROM TransactionItem ti WHERE ti.transactionDetail.id=:transactionDetailID")
+    List<TransactionItem> findTransactionItemsByTransactionDetailId(@Param("transactionDetailID") Long transactionDetailID);
 
-    @Query(name = "SELECT * FROM TransactionItem ti WHERE ti.item.id=:itemID")
-    List<TransactionItem> findTransactionItemsByItemID(Long itemID);
+    @Query(name = "SELECT ti FROM TransactionItem ti WHERE ti.item.id=:itemID")
+    List<TransactionItem> findTransactionItemsByItemId(Long itemID);
 
 }

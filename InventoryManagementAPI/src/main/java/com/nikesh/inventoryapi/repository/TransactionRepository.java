@@ -12,13 +12,13 @@ import org.springframework.data.repository.query.Param;
  */
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    @Query(name = "SELECT * FROM Transaction t WHERE t.party.id=:partyID")
+    @Query(name = "SELECT t FROM Transaction t WHERE t.party.id=:partyID")
     List<Transaction> findTransactionsByParty(@Param("partyID") Long partyID);
 
-    @Query(name = "SELECT * FROM Transaction t WHERE t.transactionType.id=:transactionType")
+    @Query(name = "SELECT t FROM Transaction t WHERE t.transactionType.id=:transactionType")
     List<Transaction> findTransactionsByTransactionType(@Param("transactionType") Long tranasctionType);
 
-    @Query(name = "SELECT * FROM Transaction t WHERE t.party.id=:partyID AND t.transactionType.id=:transactionType")
+    @Query(name = "SELECT t FROM Transaction t WHERE t.party.id=:partyID AND t.transactionType.id=:transactionType")
     List<Transaction> findTransactionsByPartyAndTransactionType(@Param("partyID") Long partyID, @Param("transactionType") Long transactionType);
 
 }

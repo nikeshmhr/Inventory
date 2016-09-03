@@ -1,6 +1,7 @@
 package com.nikesh.inventoryapi.dto.request;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,9 @@ public class SingleTransactionBundleRequestDTO implements Serializable {
     }
 
     public List<TransactionItemRequestDTO> getTransactionItems() {
+        if (this.transactionItems == null) {
+            this.transactionItems = new ArrayList<>();
+        }
         return transactionItems;
     }
 

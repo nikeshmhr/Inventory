@@ -31,12 +31,12 @@ public class TransactionItemServiceImpl implements TransactionItemService {
 
     @Override
     public List<TransactionItem> findTransactionItemsByTransactionDetailID(Long transactionDetailID) {
-        return transactionItemRepository.findTransactionItemsByTransactionDetailID(transactionDetailID);
+        return transactionItemRepository.findTransactionItemsByTransactionDetailId(transactionDetailID);
     }
 
     @Override
     public List<TransactionItem> findTransactionItemsByItemID(Long itemID) {
-        return transactionItemRepository.findTransactionItemsByItemID(itemID);
+        return transactionItemRepository.findTransactionItemsByItemId(itemID);
     }
 
     @Override

@@ -21,3 +21,11 @@
 .page-header > small {
     display: inline;
 }
+
+.items-datatable-wrapper{
+    margin: 15px;
+}
+
+.items-datatable-wrapper a:link{
+    text-decoration: underline;
+}

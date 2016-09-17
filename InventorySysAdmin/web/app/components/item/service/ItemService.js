@@ -2,26 +2,26 @@
 
 angular.module('Inventory').factory('ItemService', ItemService);
 
-ItemService.$inject = ['HttpService'];
+ItemService.$inject = ['HttpService', 'APIResourceConstantService'];
 
-function ItemService(HttpService) {
+function ItemService(HttpService, APIResourceConstantService) {
 
     var vm = this;
 
-    var resourceURI = "api/items";
+    vm.resourceURI = APIResourceConstantService.ITEM_RESOURCE_URL();
 
     return {
         addItem: function (itemData) {
-            return HttpService.post(resourceURI, itemData);
+            return HttpService.post(vm.resourceURI, itemData);
         },
         fetchItems: function () {
-            return HttpService.get(resourceURI);
+            return HttpService.get(vm.resourceURI);
         },
         updateItem: function (itemData) {
-            return HttpService.put(resourceURI + '/' + itemData.id, itemData);
+            return HttpService.put(vm.resourceURI + '/' + itemData.id, itemData);
         },
         deleteItem: function (itemId) {
-            return HttpService.delete(resourceURI + '/' + itemId);
+            return HttpService.delete(vm.resourceURI + '/' + itemId);
         }
     };
 

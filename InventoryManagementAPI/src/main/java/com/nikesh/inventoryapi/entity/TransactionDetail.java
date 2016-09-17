@@ -30,16 +30,16 @@ public class TransactionDetail implements Serializable {
     @Column(name = "bill_no", nullable = true)
     private String billNo;
 
-    @Column(name = "discount_percent", nullable = false)
+    @Column(name = "discount_percent", nullable = true)
     private Double discountPercent;
 
-    @Column(name = "discount_amount", nullable = false)
+    @Column(name = "discount_amount", nullable = true)
     private Double discountAmount;
 
-    @Column(name = "tax_percent", nullable = false)
+    @Column(name = "tax_percent", nullable = true)
     private Double taxPercent;
 
-    @Column(name = "tax_amount", nullable = false)
+    @Column(name = "tax_amount", nullable = true)
     private Double taxAmount;
 
     @Column(name = "sub_total", nullable = false)

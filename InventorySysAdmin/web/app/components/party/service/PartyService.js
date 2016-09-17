@@ -2,26 +2,26 @@
 
 angular.module('Inventory').factory('PartyService', PartyService);
 
-PartyService.$inject = ['HttpService'];
+PartyService.$inject = ['HttpService', 'APIResourceConstantService'];
 
-function PartyService(HttpService) {
+function PartyService(HttpService, APIResourceConstantService) {
 
     var vm = this;
 
-    var resourceURI = "api/parties";
+    vm.resourceURI = APIResourceConstantService.PARTY_RESOURCE_URL();
 
     return {
         addParty: function (partyData) {
-            return HttpService.post(resourceURI, partyData);
+            return HttpService.post(vm.resourceURI, partyData);
         },
         fetchParties: function () {
-            return HttpService.get(resourceURI);
+            return HttpService.get(vm.resourceURI);
         },
         updateParty: function (partyData) {
-            return HttpService.put(resourceURI + '/' + partyData.id, partyData);
+            return HttpService.put(vm.resourceURI + '/' + partyData.id, partyData);
         },
         deleteParty: function (partyId) {
-            return HttpService.delete(resourceURI + '/' + partyId);
+            return HttpService.delete(vm.resourceURI + '/' + partyId);
         }
     };
 

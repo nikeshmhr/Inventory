@@ -29,6 +29,10 @@ angular.module('Inventory').config(function ($routeProvider) {
                 controller: 'PartyController as partyCtrl',
                 templateUrl: 'app/components/party/views/manageParty.html'
             })
+            .when('/transactions/new', {
+                controller: 'TransactionAddController as transAddCtrl',
+                templateUrl: 'app/components/transaction/views/addTransaction.html'
+            })
             .otherwise({redirectTo: '/home'});
 });
 

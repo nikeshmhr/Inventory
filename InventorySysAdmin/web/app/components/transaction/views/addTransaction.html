@@ -1,0 +1,172 @@
+<!-- /.row -->
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">Add Transaction</h1>
+        <!--        <pre>{{transAddCtrl.transaction|json}}</pre>
+                <pre>{{transAddCtrl.transactionDetail|json}}</pre>
+        <pre>{{transAddCtrl.transactionItems|json}}</pre>-->
+
+        <form role="form" name="addTransactionForm" ng-submit="transAddCtrl.addTransaction(addTransactionForm)">
+
+            <div uib-alert ng-repeat="alert in transAddCtrl.alerts" type="{{alert.type}}" close ="transAddCtrl.closeAlert($index)">
+                {{alert.msg}}
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label>Transaction Type <required>*</required></label>
+                    <div>
+                        <select class="form-control" ng-model="transAddCtrl.transaction.transactionType"
+                                ng-options="transactionType.id as transactionType.name for transactionType in transAddCtrl.transactionTypeOptions"
+                                ng-change="transAddCtrl.resetTransactionData()">
+                            <option value="" ng-disabled="transAddCtrl.transaction.transactionType > 0">----SELECT----</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Party Name <required>*</required> </label>
+                    <div>
+                        <select class="form-control" ng-model="transAddCtrl.transaction.party"
+                                ng-options="party.id as party.name for party in transAddCtrl.partyList">
+                            <option value="" ng-disabled="transAddCtrl.transaction.party > 0">----SELECT----</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Transaction Date <required>*</required></label>
+                    <input class="form-control" pattern="^\d{4}-\d{2}-\d{2}$" type="text"
+                           name="transactionDate" ng-model="transAddCtrl.transaction.transactionDate" 
+                           uib-datepicker-popup is-open="transAddCtrl.isOpened" ng-click="transAddCtrl.isOpened = !transAddCtrl.isOpened;"
+                           close-text="Close" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label>Bill No.</label>
+                    <input class="form-control" type="text" name="billNo" ng-model="transAddCtrl.transactionDetail.billNo"
+                           />
+                    <!--                <p class="input-invalid" ng-show="addPartyForm.balanceAsOf.$required">
+                                        Balance as of date is required.
+                                    </p>                -->
+                </div>
+            </div>
+
+            <!--
+            ITEM SELECT DATATABLE
+            -->
+            <div class="row form-group" 
+                 ng-show="transAddCtrl.transaction.transactionType == transAddCtrl.PURCHASE || transAddCtrl.transaction.transactionType == transAddCtrl.SALE">
+                <div class="items-datatable-wrapper">
+                    <table class="table table-bordered table-responsive">
+                        <caption>Items</caption>
+                        <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Purchase Price</th>
+                                <th>Sale Price</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="i in transAddCtrl.transactionItems">
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    <select class="form-control" ng-required="true"
+                                            ng-model="i.item"
+                                            ng-options="item.id as item.itemName for item in transAddCtrl.itemList"
+                                            ng-change="transAddCtrl.itemChanged(i);">
+                                        <option value="" ng-disabled="i.item > 0">----SELECT----</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="number" min="0" step="1" ng-model="i.quantity"
+                                           max="10000"
+                                           ng-change="transAddCtrl.calculateItemTotalAmount(i)" placeholder="0" />
+                                </td>
+                                <td>{{i.purchasePrice||"0.00"}}</td>
+                                <td>{{i.salePrice||"0.00"}}</td>
+                                <td>{{i.amount||"0.00"}}</td>
+                                <td>
+                                    <a href="" ng-click="transAddCtrl.deleteItem(i.objId);"><span class="glyphicon glyphicon-trash"></span></a>
+                                </td>
+                            </tr>
+                            <tr ng-show="transAddCtrl.transactionItems.length == 0">
+                                <td colspan="7" style="text-align: center">No Items Added.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="" ng-click="transAddCtrl.addMoreItems()">Add more</a>
+                </div>
+            </div>
+            <!-- ITEM SELECT DATATABLE ENDS -->
+
+            <div class="row form-group"
+                 ng-show="transAddCtrl.transaction.transactionType == transAddCtrl.PURCHASE || transAddCtrl.transaction.transactionType == transAddCtrl.SALE">
+                <div class="col-md-4 col-md-offset-8">
+                    <label>Sub Total</label>
+                    <input class="form-control" type="number" name="subTotal" ng-model="transAddCtrl.transactionDetail.subTotal"
+                           ng-required="true" placeholder="0.00" ng-disabled="true"
+                           />
+                </div>
+            </div>
+
+            <div class="row form-group"
+                 ng-show="transAddCtrl.transaction.transactionType == transAddCtrl.PURCHASE || transAddCtrl.transaction.transactionType == transAddCtrl.SALE">
+                <div class="col-md-4 col-md-offset-4">
+                    <label>Discount Percent</label>
+                    <input class="form-control" type="number" name="discountPercent" ng-model="transAddCtrl.transactionDetail.discountPercent"
+                           min="0.00" step="0.1" ng-change="transAddCtrl.transactionDetail.discountAmount = 0;
+                                           transAddCtrl.calculateTotal()" />
+                </div>
+                <div class="col-md-4">
+                    <label>Discount Amount</label>
+                    <input class="form-control" type="number" name="discountAmount" ng-model="transAddCtrl.transactionDetail.discountAmount"
+                           min="0.00" step="0.1" ng-change="transAddCtrl.transactionDetail.discountPercent = 0;
+                                           transAddCtrl.calculateTotal()" />
+                </div>
+            </div>
+
+            <div class="row form-group"
+                 ng-show="transAddCtrl.transaction.transactionType == transAddCtrl.PURCHASE || transAddCtrl.transaction.transactionType == transAddCtrl.SALE">
+                <div class="col-md-4 col-md-offset-4">
+                    <label>Tax Percent</label>
+                    <input class="form-control" type="number" name="taxPercent" ng-model="transAddCtrl.transactionDetail.taxPercent"
+                           min="0" step="0.1" ng-change="transAddCtrl.transactionDetail.taxAmount = 0;
+                                           transAddCtrl.calculateTotal()" />
+                </div>
+                <div class="col-md-4">
+                    <label>Tax Amount</label>
+                    <input class="form-control" type="number" name="taxAmount" ng-model="transAddCtrl.transactionDetail.taxAmount"
+                           min="0" step="0.1" ng-change="transAddCtrl.transactionDetail.taxPercent = 0;
+                                           transAddCtrl.calculateTotal()" />
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label>Total Amount</label>
+                    <input class="form-control" type="number" name="totalAmount" ng-model="transAddCtrl.transaction.totalAmount"
+                           min="0" placeholder="0.00" step="0.1" ng-disabled="true" required />
+                </div>
+                <div class="col-md-4">
+                    <label>Paid Amount</label>
+                    <input class="form-control" type="number" name="paidAmount" ng-model="transAddCtrl.transactionDetail.paidAmount"
+                           ng-change="transAddCtrl.calculateRemainingBalance();
+                                           transAddCtrl.calculateTotal()"
+                           ng-required="true" min="0" step="0.1" />
+                </div>
+                <div class="col-md-4">
+                    <label>Balance (Remaining)</label>
+                    <input class="form-control" type="number" name="balanceAsOf" ng-model="transAddCtrl.transactionDetail.balance"
+                           ng-disabled="true" placeholder="0.00" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success" ng-disabled="addTransactionForm.$invalid">Add</button>
+        </form>
+    </div>
+</div>

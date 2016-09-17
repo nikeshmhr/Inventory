@@ -32,7 +32,7 @@ function PartyController(PartyService, ObjEqualityCheckService, $uibModal, $root
     // STORES ALL ALERT MESSAGES (EITHER SUCCESS OR ERROR)
     vm.alerts = [];
 
-    // STORES LIST OF Items
+    // STORES LIST OF Parties
     vm.partyList = [];
 
     /************************* ENDS ***************************

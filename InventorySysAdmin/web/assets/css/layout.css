@@ -528,7 +528,7 @@ required{
     border-collapse: collapse;
     border: 0;
     table-layout: auto;
-    margin-bottom: 0;
+    margin-bottom: 15px;
 }
 
 .data-table thead{

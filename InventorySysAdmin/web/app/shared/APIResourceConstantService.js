@@ -18,6 +18,8 @@ function APIResourceConstantService() {
 
     vm.TRANSACTION_TYPE_BASE = vm.PREFIX + "/transaction-types";
 
+    vm.ITEM_STOCK_BASE = vm.PREFIX + "/item-stocks";
+
     return {
         PARTY_RESOURCE_URL: function () {
             return vm.PARTY_BASE;
@@ -30,6 +32,9 @@ function APIResourceConstantService() {
         },
         TRANSACTION_TYPE_URL: function () {
             return vm.TRANSACTION_TYPE_BASE;
+        },
+        ITEM_STOCK_BASE: function () {
+            return vm.ITEM_STOCK_BASE;
         }
     };
 }

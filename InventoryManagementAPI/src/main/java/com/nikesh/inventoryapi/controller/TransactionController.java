@@ -1,6 +1,7 @@
 package com.nikesh.inventoryapi.controller;
 
 import com.google.gson.Gson;
+import com.nikesh.inventoryapi.constants.SystemConstants;
 import com.nikesh.inventoryapi.converter.TransactionConverter;
 import com.nikesh.inventoryapi.converter.TransactionDetailConverter;
 import com.nikesh.inventoryapi.converter.TransactionItemConverter;
@@ -130,20 +131,24 @@ public class TransactionController {
             // CONVERT TransactionDetailRequestDTO TO TransactionDetail ENTITY OBJECT.
             transactionDetail = TransactionDetailConverter.convertToEntity(transReq.getTransactionDetail());
 
-            // EXTRACT TransactionItemRequestDTO LIST.
-            // INITIALIZE TransactionItem ENTITY LIST.
-            transactionItemRequestDTOs = transReq.getTransactionItems();
-            transactionItems = new ArrayList<>();
+            // EXTRACT TRANSACTION ITEMS ONLY IF TRANSACTION TYPE IS PURCHASE OR SALE 
+            if (transaction.getTransactionType().getId() == SystemConstants.TransactionTypeConstants.PURCHASE
+                    || transaction.getTransactionType().getId() == SystemConstants.TransactionTypeConstants.SALE) {
+                // EXTRACT TransactionItemRequestDTO LIST.
+                // INITIALIZE TransactionItem ENTITY LIST.
+                transactionItemRequestDTOs = transReq.getTransactionItems();
+                transactionItems = new ArrayList<>();
 
-            // ITERATE THROUGH EVERY TransactionItemRequestDTO OBJECT
-            for (TransactionItemRequestDTO reqDTO : transactionItemRequestDTOs) {
+                // ITERATE THROUGH EVERY TransactionItemRequestDTO OBJECT
+                for (TransactionItemRequestDTO reqDTO : transactionItemRequestDTOs) {
                 // CONVERT CURRENT TransactionItemRequestDTO OBJECT INTO TransactionItem ENTITY OBJECT
-                // SET ITEM PROPERTY
-                transactionItem = TransactionItemConverter.convertToEntity(reqDTO);
-                transactionItem.setItem(itemService.findItemById(reqDTO.getItem()));
+                    // SET ITEM PROPERTY
+                    transactionItem = TransactionItemConverter.convertToEntity(reqDTO);
+                    transactionItem.setItem(itemService.findItemById(reqDTO.getItem()));
 
-                // ADD CONVERTED TransactionItem ENTITY OBJECT TO TransactionItem ENTITY OBJECT LIST
-                transactionItems.add(transactionItem);
+                    // ADD CONVERTED TransactionItem ENTITY OBJECT TO TransactionItem ENTITY OBJECT LIST
+                    transactionItems.add(transactionItem);
+                }
             }
 
             // PERSIST TRANSACTION AND EXPECT Transaction ENTITY OBJECT.

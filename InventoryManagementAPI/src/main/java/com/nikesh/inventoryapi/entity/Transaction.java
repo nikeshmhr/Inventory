@@ -39,7 +39,7 @@ public class Transaction implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date transactionDate;
 
-    @Column(name = "total_amount", nullable = false)
+    @Column(name = "total_amount", nullable = true)
     private Double totalAmount;
 
     public Transaction() {

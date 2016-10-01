@@ -49,4 +49,9 @@ public class PartyServiceImpl implements PartyService {
         partyRepository.delete(partyId);
     }
 
+    @Override
+    public List<Party> findByTypeId(Character partyType) {
+        return partyRepository.findByPartyType(partyType);
+    }
+
 }

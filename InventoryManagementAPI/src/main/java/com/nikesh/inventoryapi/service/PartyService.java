@@ -56,4 +56,6 @@ public interface PartyService {
      */
     void deleteParty(Long partyId);
 
+    List<Party> findByTypeId(Character partyType);
+
 }

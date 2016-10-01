@@ -22,6 +22,9 @@ function PartyService(HttpService, APIResourceConstantService) {
         },
         deleteParty: function (partyId) {
             return HttpService.delete(vm.resourceURI + '/' + partyId);
+        },
+        fetchParitiesByPartyType: function (partyType) {
+            return HttpService.get(vm.resourceURI + '/partyTypes/' + partyType);
         }
     };
 

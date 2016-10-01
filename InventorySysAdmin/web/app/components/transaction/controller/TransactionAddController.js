@@ -8,13 +8,16 @@ TransactionAddController.$inject = [
     'TransactionService',
     'ObjEqualityCheckService',
     'TransactionTypeService',
+    'ItemStockService',
     '$uibModal',
     '$rootScope',
     '$localStorage',
     '$anchorScroll'
 ];
 
-function TransactionAddController(PartyService, ItemService, TransactionService, ObjEqualityCheckService, TransactionTypeService, $uibModal, $rootScope, $localStorage, $anchorScroll) {
+function TransactionAddController(PartyService, ItemService, TransactionService,
+        ObjEqualityCheckService, TransactionTypeService, ItemStockService,
+        $uibModal, $rootScope, $localStorage, $anchorScroll) {
 
     var vm = this;
 
@@ -56,7 +59,8 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
         quantity: '',
         amount: '',
         purchasePrice: '',
-        salePrice: ''
+        salePrice: '',
+        availableStock: ''
     };
 
     // STORES TransactionItem FORM DATA
@@ -88,7 +92,14 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
 
     vm.SALE = 2;
 
+    vm.CASH_IN = 3;
+
+    vm.CASH_OUT = 4;
+
     vm.DECIMAL_PLACE = 1;
+
+    // STORES STOCK INFO OF ITEMS
+    vm.itemStocks = [];
 
 
     /************************* ENDS ***************************
@@ -159,20 +170,21 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
 
     vm.calculateTax = calculateTax;
 
+    vm.fetchItemStocks = fetchItemStocks;
+
+    vm.setNoOfAvailableStocks = setNoOfAvailableStocks;
+
+    vm.showRemainingBalance = showRemainingBalance;
+
+    vm.init = init;
+
     /********************************************************
      ***** FUNCTION DECLARATION AND INITIALIZATION ENDS *****
      ********************************************************/
 
 
-    vm.fetchTransactionTypes();
+    vm.init();
 
-    vm.fetchParties();
-
-    vm.fetchItems();
-
-    vm.addMoreItems();
-
-    $anchorScroll();
 
     /**********************************************************
      ************* FUNCTION DEFINITION STARTS *****************
@@ -195,6 +207,7 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
                         function (data) {
                             vm.alerts.push({type: 'success', msg: 'Transaction added successfully.'});
                             vm.resetFormData(formName);
+                            vm.init();
                         },
                         function (err) {
                             vm.alerts.push({type: 'danger', msg: err.data.errorMessage});
@@ -270,7 +283,17 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
      */
     function fetchParties() {
         vm.partyList = [];
-        PartyService.fetchParties()
+        var partyType = '';
+
+        var transType = vm.transaction.transactionType;
+
+        if (transType == vm.PURCHASE || transType == vm.CASH_OUT) { // FETCH PAYABLE PARTIES ONLY.
+            partyType = 'P';
+        } else if (transType == vm.SALE || transType == vm.CASH_IN) { // FETCH RECEIVABLE PARTIES ONLY.
+            partyType = 'R';
+        }
+
+        PartyService.fetchParitiesByPartyType(partyType)
                 .then(
                         function (data) {
                             vm.partyList = data;
@@ -356,6 +379,8 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
 
         itemObject.quantity = '';
         itemObject.amount = '';
+
+        vm.setNoOfAvailableStocks(itemObject);
     }
 
     function calculateItemTotalAmount(itemObject) {
@@ -416,6 +441,9 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
     }
 
     function calculateTotal() {
+        if (vm.transaction.transactionType == vm.CASH_IN || vm.transaction.transactionType == vm.CASH_OUT) {
+            return;
+        }
         var total = vm.transactionDetail.subTotal;
 
         // CALCULATE DISCOUNT % OR DISCOUNT AMOUNT
@@ -445,10 +473,12 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
     }
 
     function calculateRemainingBalance() {
-        if (vm.transactionDetail.paidAmount > 0) {
-            vm.transactionDetail.balance = parseFloat((vm.transaction.totalAmount - vm.transactionDetail.paidAmount).toFixed(vm.DECIMAL_PLACE));
-        } else {
-            vm.transactionDetail.balance = parseFloat(vm.transaction.totalAmount.toFixed(vm.DECIMAL_PLACE));
+        if (vm.transaction.transactionType == vm.SALE || vm.transaction.transactionType == vm.PURCHASE) {
+            if (vm.transactionDetail.paidAmount > 0) {
+                vm.transactionDetail.balance = parseFloat((vm.transaction.totalAmount - vm.transactionDetail.paidAmount).toFixed(vm.DECIMAL_PLACE));
+            } else {
+                vm.transactionDetail.balance = parseFloat(vm.transaction.totalAmount.toFixed(vm.DECIMAL_PLACE));
+            }
         }
     }
 
@@ -482,6 +512,58 @@ function TransactionAddController(PartyService, ItemService, TransactionService,
                 vm.transactionDetail.taxAmount = parseFloat(tax.toFixed(vm.DECIMAL_PLACE));
             }
         }
+    }
+
+    function fetchItemStocks() {
+        vm.itemStocks = [];
+
+        ItemStockService.fetchItemStocks()
+                .then(
+                        function (data) {
+                            vm.itemStocks = data;
+                        },
+                        function (err) {
+
+                        }
+                );
+    }
+
+    function setNoOfAvailableStocks(item) {
+        for (var i = 0; i < vm.itemStocks.length; i++) {
+            if (item.item == vm.itemStocks[i].item) {
+                item.availableStock = vm.itemStocks[i].availableNoOfStocks;
+                break;
+            } else {
+                item.availableStock = 0;
+            }
+        }
+    }
+
+    function showRemainingBalance() {
+        if (vm.transaction.transactionType == vm.CASH_IN || vm.transaction.transactionType == vm.CASH_OUT) {
+            for (var i = 0; i < vm.partyList.length; i++) {
+                if (vm.transaction.party == vm.partyList[i].id) {
+                    vm.transactionDetail.balance = vm.partyList[i].currentBalance;
+                    break;
+                } else {
+                    vm.transactionDetail.balance = 0;
+                }
+            }
+        }
+    }
+
+    function init() {
+        vm.fetchTransactionTypes();
+
+        // vm.fetchParties();
+
+        vm.fetchItems();
+
+        vm.addMoreItems();
+
+        vm.fetchItemStocks();
+
+        $anchorScroll();
     }
 
 

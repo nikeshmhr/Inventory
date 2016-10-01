@@ -272,4 +272,46 @@ public class PartyController {
         }
     }
 
+    @RequestMapping(method = GET, value = "/partyTypes/{partyType}")
+    public ResponseEntity<List<PartyResponseDTO>> getPartiesByPartyType(@PathVariable Character partyType) {
+        // CHECK IF partyId IS INVALID
+        if (partyType == null || partyType.equals("")) {
+            throw new GenericException(new ErrorResponse(
+                    HttpStatus.BAD_REQUEST.value(),
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid request body.",
+                    "Invalid request, invalid party type [" + partyType + "]."
+            ));
+        } else {
+            partyList = partyService.findByTypeId(partyType);
+
+            // CHECK IF Party LIST IS EMPTY
+            if (partyList.isEmpty()) {
+                // THROW ERROR RESPONSE
+                throw new GenericException(new ErrorResponse(
+                        HttpStatus.EXPECTATION_FAILED.value(),
+                        HttpStatus.EXPECTATION_FAILED,
+                        "Parties with party type [" + partyType + "] does not exists.",
+                        "Failed to find parties with party type [" + partyType + "]."
+                ));
+            } else {
+                try {
+                    // CONVERT Party TO BE DELETED INTO RESPONSE DTO
+                    partyResponseDTOList = PartyConverter.convertToResponseDTOList(partyList);
+
+                    // RETURN RESPONSE
+                    return new ResponseEntity<>(partyResponseDTOList, HttpStatus.OK);
+                } catch (Exception ex) {
+                    // THROW CONVERSION EXCEPTION
+                    throw new GenericException(new ErrorResponse(
+                            HttpStatus.EXPECTATION_FAILED.value(),
+                            HttpStatus.EXPECTATION_FAILED,
+                            "Could not show party because of conversion failure.",
+                            "Conversion failed. Exception: [" + ex.getMessage() + "]"
+                    ));
+                }
+            }
+        }
+    }
+
 }

@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="assets/css/sb-admin.css" />
@@ -57,6 +58,9 @@
         <script type="text/javascript" src="app/components/party/controller/PartyController.js"></script>
         <script type="text/javascript" src="app/components/party/modal/PartyUpdateModalCtrl.js"></script>
 
+        <script type="text/javascript" src="app/components/stock/service/StockService.js"></script>
+        <script type="text/javascript" src="app/components/stock/controller/StockController.js"></script>
+
         <script type="text/javascript" src="app/components/transaction/service/TransactionService.js"></script>
         <script type="text/javascript" src="app/components/transaction/controller/TransactionAddController.js"></script>
 
@@ -75,98 +79,95 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">SB Admin</a>
+                    <a class="navbar-brand" href="#/home">Inventory System</a>
                 </div>
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
                     <li class="dropdown" uib-dropdown>
-                        <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                        <ul class="dropdown-menu message-dropdown" uib-dropdown-menu>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                        </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading"><strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                        </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading"><strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-preview">
-                                <a href="#">
-                                    <div class="media">
-                                        <span class="pull-left">
-                                            <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                        </span>
-                                        <div class="media-body">
-                                            <h5 class="media-heading"><strong>John Smith</strong>
-                                            </h5>
-                                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="message-footer">
-                                <a href="#">Read All New Messages</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <!--                        <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                                                <ul class="dropdown-menu message-dropdown" uib-dropdown-menu>
+                                                    <li class="message-preview">
+                                                        <a href="#">
+                                                            <div class="media">
+                                                                <span class="pull-left">
+                                                                    <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                                                </span>
+                                                                <div class="media-body">
+                                                                    <h5 class="media-heading"><strong>John Smith</strong>
+                                                                    </h5>
+                                                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li class="message-preview">
+                                                        <a href="#">
+                                                            <div class="media">
+                                                                <span class="pull-left">
+                                                                    <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                                                </span>
+                                                                <div class="media-body">
+                                                                    <h5 class="media-heading"><strong>John Smith</strong>
+                                                                    </h5>
+                                                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li class="message-preview">
+                                                        <a href="#">
+                                                            <div class="media">
+                                                                <span class="pull-left">
+                                                                    <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                                                </span>
+                                                                <div class="media-body">
+                                                                    <h5 class="media-heading"><strong>John Smith</strong>
+                                                                    </h5>
+                                                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li class="message-footer">
+                                                        <a href="#">Read All New Messages</a>
+                                                    </li>
+                                                </ul>
+                                            </li>-->
+                        <!--                    <li class="dropdown" uib-dropdown>
+                                                <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                                                <ul class="dropdown-menu alert-dropdown" uib-dropdown-menu>
+                                                    <li>
+                                                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <a href="#">View All</a>
+                                                    </li>
+                                                </ul>
+                                            </li>-->
                     <li class="dropdown" uib-dropdown>
-                        <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                        <ul class="dropdown-menu alert-dropdown" uib-dropdown-menu>
-                            <li>
-                                <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                            </li>
-                            <li>
-                                <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                            </li>
-                            <li>
-                                <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                            </li>
-                            <li>
-                                <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                            </li>
-                            <li>
-                                <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                            </li>
-                            <li>
-                                <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">View All</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" uib-dropdown>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle><i class="fa fa-user"></i> Nikesh Maharjan <b class="caret"></b></a>
                         <ul class="dropdown-menu" uib-dropdown-menu>
                             <li>
                                 <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
@@ -182,39 +183,43 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse" uib-collapse="!isCollapsed">
                     <ul class="nav navbar-nav side-nav">
                         <li>
-                            <a href="#/items/new" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-plus"></i> Add Items</a>
-                        </li>
-                        <li>
-                            <a href="#/items" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-dashboard"></i> List Items</a>
-                        </li>
-                        <li>
-                            <a href="#/parties/new" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-male"></i> Add Party</a>
-                        </li>
-                        <li>
-                            <a href="#/parties" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-female"></i> List Parties</a>
-                        </li>
-                        <li>
-                            <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                        </li>
-                        <li>
-                            <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-toggle="collapse" ng-click="dropDownCollapse = !dropDownCollapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                            <ul id="demo" class="collapse" uib-collapse="!dropDownCollapse">
+                            <a href="javascript:;" data-toggle="collapse" ng-click="itemDropDownCollapse = !itemDropDownCollapse" 
+                               data-target="#itemDropDown"><i class="fa fa-fw fa-archive"></i> Item <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="itemDropDown" class="collapse" uib-collapse="!itemDropDownCollapse">
                                 <li>
-                                    <a href="#">Dropdown Item</a>
+                                    <a href="#/items/new" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-plus"></i> Add Items</a>
                                 </li>
                                 <li>
-                                    <a href="#">Dropdown Item</a>
+                                    <a href="#/items" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-list-ol"></i> List Items</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                            <a href="javascript:;" data-toggle="collapse" ng-click="partyDropDownCollapse = !partyDropDownCollapse" 
+                               data-target="#partyDropDown"><i class="fa fa-fw fa-group"></i> Party <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="partyDropDown" class="collapse" uib-collapse="!partyDropDownCollapse">
+                                <li>
+                                    <a href="#/parties/new" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-plus"></i> Add Party</a>
+                                </li>
+                                <li>
+                                    <a href="#/parties" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-list-ol"></i> List Parties</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+                            <a href="javascript:;" data-toggle="collapse" ng-click="txnDropDownCollapse = !txnDropDownCollapse" 
+                               data-target="#txnDropDown"><i class="fa fa-fw fa-money"></i> Transaction <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="txnDropDown" class="collapse" uib-collapse="!txnDropDownCollapse">
+                                <li>
+                                    <a href="#/transactions/new" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-plus"></i> Add Transaction</a>
+                                </li>
+                                <li>
+                                    <a href="#/transactions" ng-click="isCollapsed = !isCollapsed"><i class="fa fa-fw fa-list-ol"></i> List Transaction</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#/stocks"><i class="fa fa-fw fa-unsorted"></i> Stocks</a>
                         </li>
                     </ul>
                 </div>

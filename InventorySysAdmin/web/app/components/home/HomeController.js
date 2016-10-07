@@ -1,3 +1,5 @@
+/* global angular */
+
 angular.module('Inventory').controller('HomeController', HomeController);
 
 HomeController.$inject = [

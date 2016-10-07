@@ -29,3 +29,7 @@
 .items-datatable-wrapper a:link{
     text-decoration: underline;
 }
+
+a {
+    color: #000000;
+}

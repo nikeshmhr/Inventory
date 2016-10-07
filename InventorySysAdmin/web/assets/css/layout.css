@@ -1,24 +1,10 @@
-/* =====================================
-
-    CREATED By
-
-    PUKAR SHRESTHA 
-
-    FOR NEPAL KRISHI COMPANY | F1SOFT INTERNATIONAL
-
-    2016
-
-    ==================================== */
-
-
-
 html,
 body {
     min-height: 100%;
 }
 
 *{
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', 'Open Sans', sans-serif;
 }
 
 body {
@@ -40,6 +26,10 @@ a{
 
 a:hover, a:active, a:focus{
     color: #17b996;
+}
+
+a.remove {
+    color: #ff3333;
 }
 
 
@@ -210,7 +200,7 @@ a:hover, a:active, a:focus{
 
 .main-header .logo .logo-lg,.main-header .logo .logo-mini{
     margin-top: 8px;
-    
+
 }
 
 .main-header > .navbar{
@@ -313,7 +303,7 @@ a:hover, a:active, a:focus{
 }
 
 .skin-black .sidebar-menu > li > a, .skin-black .sidebar-menu > li:hover > a, .skin-black .sidebar-menu > li.active > a{
-/*    border-left-color: #2db04b;*/
+    /*    border-left-color: #2db04b;*/
     border-left: none;
 
 }
@@ -663,9 +653,9 @@ required{
 /*MESSAGE & VALIDATION*/
 
 .alert-danger span{
-/*    font-size: 12px;
-    padding: 6px;
-    display: block;*/
+    /*    font-size: 12px;
+        padding: 6px;
+        display: block;*/
 }
 
 .message{
@@ -842,4 +832,80 @@ fieldset[disabled] .btn-primary:hover{
     margin-left: 400px;
     width: 100px; 
     height: 100px;
+}
+
+/** STOCK LIST CARD **/
+.card-wrapper {
+    background: #f0f3f5;
+    box-shadow: 1px 1px 5px #eee;
+    -webkit-box-shadow: 1px 1px 5px #eee;
+    -moz-box-shadow: 1px 1px 5px #eee;
+    margin: 15px 0;
+    border: 1px solid transparent;
+}
+
+.card-wrapper:hover{
+    border: 1px solid #520404;
+}
+
+.card-header, .card-body, .card-footer {
+    padding: 15px;
+}
+
+.card-header {
+    background-color: #87948d;
+    color: #520404;
+    text-transform: uppercase;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.card-body {
+    background-color: inherit;
+    color: #520404;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.card-footer {
+    background-color: inherit;
+    color: #520404;
+    font-weight: bold;
+}
+
+.card-header .header-content-left, .header-content-right, .footer-summary{
+    padding: 0;
+}
+
+.header-content-left {
+    text-align: left;
+}
+
+.header-content-right {
+    text-align: right;
+}
+
+.card-header .header-text, .header-value {
+    display: block;
+    padding:0;
+}
+
+.card-body .body-content-left, .body-content-right {
+    padding: 0;
+}
+
+.card-body .body-content-left, .body-content-right {
+    padding: 0;
+}
+
+.body-content-left {
+    text-align: left;
+}
+
+.body-content-right {
+    text-align: right;
+}
+
+.card-footer .footer-summary {
+    font-style: italic;
 }

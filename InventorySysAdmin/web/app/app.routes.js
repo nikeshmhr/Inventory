@@ -33,6 +33,10 @@ angular.module('Inventory').config(function ($routeProvider) {
                 controller: 'TransactionAddController as transAddCtrl',
                 templateUrl: 'app/components/transaction/views/addTransaction.html'
             })
+            .when('/stocks', {
+                controller: 'StockController as stockCtrl',
+                templateUrl: 'app/components/stock/views/stockList.jsp'
+            })
             .otherwise({redirectTo: '/home'});
 });
 

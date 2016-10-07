@@ -89,7 +89,7 @@
                                 </td>
                                 <td>
                                     <input class="form-control" type="number" min="0" step="1" ng-model="i.quantity"
-                                           ng-max="transAddCtrl.transaction.transactionType == transAddCtrl.SALE ? i.availableStock:''}}"
+                                           ng-max="transAddCtrl.transaction.transactionType == transAddCtrl.SALE ? i.availableStock:''"
                                            ng-disabled="i.availableStock == 0 && transAddCtrl.transaction.transactionType == transAddCtrl.SALE"
                                            ng-required="transAddCtrl.transaction.transactionType == transAddCtrl.PURCHASE || transAddCtrl.transaction.transactionType == transAddCtrl.SALE"
                                            ng-change="transAddCtrl.calculateItemTotalAmount(i)" placeholder="0" />
@@ -101,7 +101,10 @@
                                 <td>{{i.salePrice||"0.00"}}</td>
                                 <td>{{i.amount||"0.00"}}</td>
                                 <td>
-                                    <a href="" ng-click="transAddCtrl.deleteItem(i.objId);"><span class="glyphicon glyphicon-trash"></span></a>
+                                    <a href="" class="remove" ng-click="transAddCtrl.deleteItem(i.objId);"
+                                       uib-tooltip="Remove row">
+                                        <span class="fa fa-fw fa-minus-circle"></span>
+                                    </a>
                                 </td>
                             </tr>
                             <tr ng-show="transAddCtrl.transactionItems.length == 0">

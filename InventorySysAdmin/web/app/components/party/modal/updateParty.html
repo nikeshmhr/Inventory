@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label>Current Balance</label>
                         <input class="form-control" type="number" name="currentBalance" ng-model="party.currentBalance"
-                               min="0" placeholder="0.00" step="0.1" required
+                               min="0" placeholder="0.00" step="0.1" required disabled
                                />
                         <p class="input-invalid" ng-show="updateParty.currentBalance.$invalid">
                             Balance should be greater than or equals to 0.
@@ -45,8 +45,8 @@
                     <div class="form-group">
                         <label>Party Type <required>*</required></label>
                         <div class="radio">
-                            <label><input type="radio" name="partyType" required ng-model="party.partyType" value="P" /> Payable</label>
-                            <label><input type="radio" name="partyType" required ng-model="party.partyType" value="R" /> Receivable</label>
+                            <label><input type="radio" name="partyType" required ng-model="party.partyType" value="P" disabled /> Payable</label>
+                            <label><input type="radio" name="partyType" required ng-model="party.partyType" value="R" disabled /> Receivable</label>
                             <p class="input-invalid" ng-show="updateParty.partyType.$invalid && updateParty.partyType.$touched">
                                 Party type is required field.
                             </p>

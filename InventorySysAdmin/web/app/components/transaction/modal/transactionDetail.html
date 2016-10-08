@@ -1,0 +1,113 @@
+<!--<pre>{{extras.items|json}}</pre>-->
+<!--<pre>{{transaction|json}}</pre>-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="box-modal">
+            <div class="box-header with-border">
+                <i class="fa fa-pencil-square"></i>
+                <h3 class="box-title">Transaction Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Transaction Type</label>
+                        <div>
+                            {{extras.transactionType}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Party</label>
+                        <div>
+                            {{extras.partyName}}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Transaction Date</label>
+                        <div>
+                            {{transaction.transaction.transactionDate|date: 'MMMM dd, yyyy'}}
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="transaction.transaction.totalAmount == null" class="row">
+                    <div class="col-md-4">
+                        <label>Amount</label>
+                        <div>
+                            {{transaction.transactionDetail.paidAmount||"0.00"}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="transaction.transactionItems.length > 0">
+                    <div class="items-datatable-wrapper">
+                        <table class="table table-bordered table-responsive">
+                            <caption>Items</caption>
+                            <thead>
+                                <tr>
+                                    <th>S.N</th>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Purchase Price</th>
+                                    <th>Sale Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="i in transaction.transactionItems">
+                                    <td>{{$index + 1}}</td>
+                                    <td>
+                                        {{getItemById(i.item).itemName}}
+                                    </td>
+                                    <td>
+                                        {{i.quantity}}
+                                    </td>
+                                    <td>
+                                        {{getItemById(i.item).purchasePrice}}
+                                    </td>
+                                    <td>
+                                        {{getItemById(i.item).salePrice}}
+                                    </td>
+                                    <td>
+                                        {{i.amount}}
+                                    </td>
+                                </tr>
+                                <tr ng-show="transaction.transactionItems.length == 0">
+                                    <td colspan="6" style="text-align: center">No Items.</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionItems.length > 0">
+                                    <td colspan="4">&nbsp;</td>
+                                    <td>Sub Total</td>
+                                    <td>{{transaction.transactionDetail.subTotal}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionItems.length > 0">
+                                    <td colspan="2">&nbsp;</td>
+                                    <td>Discount Amount</td>
+                                    <td>{{transaction.transactionDetail.discountAmount|| "0.00"}}</td>
+                                    <td>Tax Amount</td>
+                                    <td>{{transaction.transactionDetail.taxAmount|| "0.00"}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionItems.length > 0">
+                                    <td colspan="4">&nbsp;</td>
+                                    <td>Total Amount</td>
+                                    <td>{{transaction.transaction.totalAmount|| "0.00"}}</td>
+                                </tr>
+                                <tr ng-show="transaction.transactionItems.length > 0">
+                                    <td colspan="2">&nbsp;</td>
+                                    <td>Paid Amount</td>
+                                    <td>{{transaction.transactionDetail.paidAmount|| "0.00"}}</td>
+                                    <td>Balance</td>
+                                    <td>{{transaction.transactionDetail.balance|| "0.00"}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <label class="col-md-3"></label>
+                <button type="button" class="btn btn-success" ng-click="ok()">Back</button>
+                <span></span>
+                <!--<button type="button" ng-click="cancel()" class="btn btn-danger">Cancel</button>-->
+            </div>
+        </div>
+    </div>
+</div>

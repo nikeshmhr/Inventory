@@ -1,0 +1,59 @@
+<!--<pre>{{transDetailCtrl.transactions|json}}</pre>-->
+<!--<pre>{{transDetailCtrl.parties|json}}</pre>-->
+
+<!-- /.row -->
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">Transaction List <small>({{transDetailCtrl.transactions.length}})</small></h1>
+
+        <span ng-show="transDetailCtrl.transactions.length == 0">
+            Transactions not found.
+        </span>
+        <div class="col-md-12" ng-show="transDetailCtrl.transactions.length != 0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Transaction Type</th>
+                            <th>Transaction Date</th>
+                            <th>Party</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr 
+                            ng-click="transDetailCtrl.detailAction(trans)"
+                            ng-repeat="trans in transDetailCtrl.transactions.slice(((transDetailCtrl.currentPage - 1) * transDetailCtrl.itemsPerPage), ((transDetailCtrl.currentPage) * transDetailCtrl.itemsPerPage))">
+                            <td>{{transDetailCtrl.itemsPerPage * (transDetailCtrl.currentPage - 1) + $index + 1}}</td>
+                            <td>{{transDetailCtrl.getTransactionTypeNameById(trans.transaction.transactionType)}}</td>
+                            <td>
+                                {{trans.transaction.transactionDate|date: 'MMMM dd, yyyy'}}
+                            </td>
+                            <td>
+                                {{transDetailCtrl.getPartyById(trans.transaction.party).name}}
+                            </td>
+                            <td>
+                                <span ng-show="trans.transaction.transactionType == 1 || trans.transaction.transactionType == 2">
+                                    Rs. {{trans.transaction.totalAmount|number: 2}}
+                                </span>
+                                <span ng-show="trans.transaction.transactionType == 3 || trans.transaction.transactionType == 4">
+                                    Rs. {{trans.transactionDetail.paidAmount|number: 2}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <center>
+        <uib-pagination ng-show="transDetailCtrl.transactions.length > 0" boundary-links="true" boundary-link-numbers="true" items-per-page ="transDetailCtrl.itemsPerPage"
+                        total-items="transDetailCtrl.transactions.length" 
+                        ng-model="transDetailCtrl.currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
+                        first-text="&laquo;" last-text="&raquo;" max-size="transDetailCtrl.maxSize" ></uib-pagination>
+    </center>
+</div>

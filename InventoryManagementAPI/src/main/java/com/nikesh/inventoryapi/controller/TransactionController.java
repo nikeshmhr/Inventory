@@ -5,6 +5,7 @@ import com.nikesh.inventoryapi.constants.SystemConstants;
 import com.nikesh.inventoryapi.converter.TransactionConverter;
 import com.nikesh.inventoryapi.converter.TransactionDetailConverter;
 import com.nikesh.inventoryapi.converter.TransactionItemConverter;
+import com.nikesh.inventoryapi.dto.request.FileExportContent;
 import com.nikesh.inventoryapi.dto.request.SingleTransactionBundleRequestDTO;
 import com.nikesh.inventoryapi.dto.request.TransactionItemRequestDTO;
 import com.nikesh.inventoryapi.dto.request.TransactionRequestDTO;
@@ -20,6 +21,7 @@ import com.nikesh.inventoryapi.service.ItemService;
 import com.nikesh.inventoryapi.service.PartyService;
 import com.nikesh.inventoryapi.service.SingleTransactionService;
 import com.nikesh.inventoryapi.service.TransactionTypeService;
+import com.nikesh.inventoryapi.util.TransactionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -195,12 +197,14 @@ public class TransactionController {
     }
 
     @RequestMapping(method = POST, value = "/export")
-    public ResponseEntity<List<SingleTransactionBundleResponseDTO>> exportItemWiseTxnReport(@RequestBody TransactionSearchRequestParamDto searchRequest) {
+    public ResponseEntity<List<FileExportContent>> exportItemWiseTxnReport(@RequestBody TransactionSearchRequestParamDto searchRequest) {
 
         List<SingleTransactionBundleResponseDTO> exportResults = singleTransactionService.searchTxnToExport(searchRequest);
 
+        List<FileExportContent> exportContent = TransactionUtils.convertSingleTxnBundleToFileExportContent(exportResults, itemService);
+
         // todo check file type and call export method accordingly
-        return new ResponseEntity<>(exportResults, HttpStatus.OK);
+        return new ResponseEntity<>(exportContent, HttpStatus.OK);
 
     }
 

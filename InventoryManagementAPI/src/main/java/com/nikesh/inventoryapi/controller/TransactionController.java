@@ -8,6 +8,7 @@ import com.nikesh.inventoryapi.converter.TransactionItemConverter;
 import com.nikesh.inventoryapi.dto.request.SingleTransactionBundleRequestDTO;
 import com.nikesh.inventoryapi.dto.request.TransactionItemRequestDTO;
 import com.nikesh.inventoryapi.dto.request.TransactionRequestDTO;
+import com.nikesh.inventoryapi.dto.request.TransactionSearchRequestParamDto;
 import com.nikesh.inventoryapi.dto.response.ErrorResponse;
 import com.nikesh.inventoryapi.dto.response.SingleTransactionBundleResponseDTO;
 import com.nikesh.inventoryapi.dto.response.TransactionResponseDTO;
@@ -141,7 +142,7 @@ public class TransactionController {
 
                 // ITERATE THROUGH EVERY TransactionItemRequestDTO OBJECT
                 for (TransactionItemRequestDTO reqDTO : transactionItemRequestDTOs) {
-                // CONVERT CURRENT TransactionItemRequestDTO OBJECT INTO TransactionItem ENTITY OBJECT
+                    // CONVERT CURRENT TransactionItemRequestDTO OBJECT INTO TransactionItem ENTITY OBJECT
                     // SET ITEM PROPERTY
                     transactionItem = TransactionItemConverter.convertToEntity(reqDTO);
                     transactionItem.setItem(itemService.findItemById(reqDTO.getItem()));
@@ -185,6 +186,22 @@ public class TransactionController {
                     )
             );
         }
+    }
+
+    @RequestMapping(method = POST, value = "/search")
+    public ResponseEntity<TransactionResponseDTO> searchTransaction(@RequestBody TransactionSearchRequestParamDto searchRequest) {
+        // todo write this....
+        return null;
+    }
+
+    @RequestMapping(method = POST, value = "/export")
+    public ResponseEntity<List<SingleTransactionBundleResponseDTO>> exportItemWiseTxnReport(@RequestBody TransactionSearchRequestParamDto searchRequest) {
+
+        List<SingleTransactionBundleResponseDTO> exportResults = singleTransactionService.searchTxnToExport(searchRequest);
+
+        // todo check file type and call export method accordingly
+        return new ResponseEntity<>(exportResults, HttpStatus.OK);
+
     }
 
 }

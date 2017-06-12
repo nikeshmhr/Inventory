@@ -245,6 +245,20 @@
             <artifactId>jasperreports-fonts</artifactId>
             <version>5.6.1</version>
         </dependency>
+        
+        <!-- FOR EXCEL EXPORT -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.8</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
+            <type>jar</type>
+        </dependency>
 
     </dependencies>
 

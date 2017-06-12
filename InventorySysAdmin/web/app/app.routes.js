@@ -43,6 +43,12 @@ angular.module('Inventory').config(function ($routeProvider) {
                 controller: 'StockController as stockCtrl',
                 templateUrl: 'app/components/stock/views/stockList.jsp'
             })
+            
+            .when('/reports', {
+                controller: 'ReportController as reportCtrl',
+                templateUrl: 'app/components/report/views/reports.jsp'
+            })
+            
             .otherwise({redirectTo: '/home'});
 });
 

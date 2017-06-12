@@ -4,6 +4,7 @@ import com.nikesh.inventoryapi.constants.SystemConstants;
 import com.nikesh.inventoryapi.converter.TransactionConverter;
 import com.nikesh.inventoryapi.converter.TransactionDetailConverter;
 import com.nikesh.inventoryapi.converter.TransactionItemConverter;
+import com.nikesh.inventoryapi.dto.request.FileExportContent;
 import com.nikesh.inventoryapi.dto.request.TransactionSearchRequestParamDto;
 import com.nikesh.inventoryapi.dto.response.SingleTransactionBundleResponseDTO;
 import com.nikesh.inventoryapi.dto.response.TransactionDetailResponseDTO;
@@ -24,9 +25,7 @@ import com.nikesh.inventoryapi.service.SingleTransactionService;
 import com.nikesh.inventoryapi.util.TransactionUtils;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,15 +189,21 @@ public class SingleTransactionServiceImpl implements SingleTransactionService {
         List<Object[]> resultList = nativeQuery.getResultList();
 
         List<SingleTransactionBundleResponseDTO> responseList = createResponseListFromResultSet(resultList);
-        
+
         return responseList;
     }
 
     private void setQueryParameters(TransactionSearchRequestParamDto searchParam, Query nativeQuery) {
         nativeQuery.setParameter("fromDate", TransactionUtils.utilDateToSqlDate(searchParam.getFromDate()));
         nativeQuery.setParameter("toDate", TransactionUtils.utilDateToSqlDate(searchParam.getToDate()));
-        nativeQuery.setParameter("itemId", searchParam.getItemId());
-        nativeQuery.setParameter("txnType", searchParam.getTransactionTypeId());
+
+        if (searchParam.getItemId() != null) {
+            nativeQuery.setParameter("itemId", searchParam.getItemId());
+        }
+
+        if (searchParam.getTransactionTypeId() != null) {
+            nativeQuery.setParameter("txnType", searchParam.getTransactionTypeId());
+        }
     }
 
     private List<SingleTransactionBundleResponseDTO> createResponseListFromResultSet(List<Object[]> resultList) {
@@ -267,6 +272,60 @@ public class SingleTransactionServiceImpl implements SingleTransactionService {
         singleTxn.getTransactionItems().add(txnItemResponse);
 
         return singleTxn;
+    }
+
+    @Override
+    public List<FileExportContent> getTxnByTxnTypeAndTxnDate(TransactionSearchRequestParamDto searchRequestParamDto) {
+        String query = "SELECT t FROM Transaction t"
+                + " WHERE t.transactionType.id=" + searchRequestParamDto.getTransactionTypeId();
+
+        if (searchRequestParamDto.getFromDate() != null && searchRequestParamDto.getToDate() != null) {
+            query += " AND t.transactionDate BETWEEN '" + TransactionUtils.utilDateToSqlDate(searchRequestParamDto.getFromDate())
+                    + "' AND '" + TransactionUtils.utilDateToSqlDate(searchRequestParamDto.getToDate()) + "'";
+        }
+
+        System.out.println("QUERY : " + query);
+        
+        Query q = em.createQuery(query, Transaction.class);
+        List<Transaction> resultList = q.getResultList();
+
+        List<FileExportContent> responseDtos = new ArrayList<>();
+        FileExportContent content;
+        for (Transaction txn : resultList) {
+            TransactionDetail txnDetailByTxnId = transDetailRepo.findTransactionDetailByTransactionID(txn.getId());
+            List<TransactionItem> txnItemList = transItemRepo.findTransactionItemsByTransactionDetailId(txnDetailByTxnId.getId());
+            for (TransactionItem txnItem : txnItemList) {
+                if (responseDtos.isEmpty()) {    // Means initial list so add directly without comparision
+                    content = new FileExportContent();
+                    content.setItemName(txnItem.getItem().getItemName());
+                    content.setItemId(txnItem.getItem().getId());
+                    content.setQuantity(txnItem.getQuantity());
+
+                    responseDtos.add(content);
+                } else {    // Otherwise check if this item already exists in response list,
+                    // if it exists then only add quantity otherwise add as new.
+                    boolean doesntExists = true;
+
+                    for (FileExportContent responseDto : responseDtos) {
+                        if (responseDto.getItemId().equals(txnItem.getItem().getId())) {
+                            responseDto.setQuantity(responseDto.getQuantity() + txnItem.getQuantity());
+                            doesntExists = false;
+                            break;
+                        }
+                    }
+
+                    if (doesntExists) {
+                        content = new FileExportContent();
+                        content.setItemName(txnItem.getItem().getItemName());
+                        content.setItemId(txnItem.getItem().getId());
+                        content.setQuantity(txnItem.getQuantity());
+
+                        responseDtos.add(content);
+                    }
+                }
+            }
+        }
+        return responseDtos;
     }
 
 }

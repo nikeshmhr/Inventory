@@ -35,12 +35,20 @@ public class TransactionUtils {
                 + " JOIN transactions t"
                 + " ON (td.transaction_id=t.transaction_id)"
                 + " JOIN transaction_items ti"
-                + " ON (td.transaction_detail_id=ti.transaction_detail_id)"
-                + " WHERE t.transaction_date BETWEEN :fromDate AND :toDate AND ti.item_id=:itemId AND t.transaction_type=:txnType";
+                + " ON (td.transaction_detail_id=ti.transaction_detail_id)";
 
-        System.out.println("QUERY :: " + query);
+        String whereClause = " WHERE t.transaction_date BETWEEN :fromDate AND :toDate";
+        if (searchRequest.getItemId() != null) {
+            whereClause += " AND ti.item_id=:itemId";
+        }
 
-        return query;
+        if (searchRequest.getTransactionTypeId() != null) {
+            whereClause += " AND t.transaction_type=:txnType";
+        }
+
+        System.out.println("QUERY :: " + query + whereClause);
+
+        return query + whereClause;
     }
 
     public static java.sql.Date utilDateToSqlDate(Date uDate) {

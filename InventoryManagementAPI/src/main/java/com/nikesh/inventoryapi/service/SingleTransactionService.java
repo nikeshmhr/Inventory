@@ -1,5 +1,6 @@
 package com.nikesh.inventoryapi.service;
 
+import com.nikesh.inventoryapi.dto.request.FileExportContent;
 import com.nikesh.inventoryapi.dto.request.TransactionSearchRequestParamDto;
 import com.nikesh.inventoryapi.dto.response.SingleTransactionBundleResponseDTO;
 import com.nikesh.inventoryapi.entity.Transaction;
@@ -38,4 +39,6 @@ public interface SingleTransactionService {
     List<SingleTransactionBundleResponseDTO> findAllTransactions() throws Exception;
 
     List<SingleTransactionBundleResponseDTO> searchTxnToExport(TransactionSearchRequestParamDto searchParam);
+
+    List<FileExportContent> getTxnByTxnTypeAndTxnDate(TransactionSearchRequestParamDto searchRequestParamDto);
 }

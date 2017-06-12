@@ -53,6 +53,18 @@ function HttpService($http, $q, $location) {
                                 return $q.reject(err);
                             }
                     );
+        },
+        postForExcel: function (url, data) {
+            return $http.post(vm.url + url, data, {responseType: 'arraybuffer'})
+                    .then(
+                            function (response) {
+                                return response.data;
+                            },
+                            function (err) {
+                                console.log("RAW ERROR :: "+ JSON.stringify(err));
+                                return $q.reject(err);
+                            }
+                    );
         }
     };
 
